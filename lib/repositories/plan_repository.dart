@@ -1,3 +1,4 @@
+import 'package:sqflite/sqflite.dart';
 import '../core/database/app_database.dart';
 import '../models/plan_model.dart';
 
@@ -46,7 +47,10 @@ class PlanRepository {
       'SELECT COUNT(*) as count FROM trainees WHERE plan_id = ?',
       [planId],
     );
-    return Sqflite.firstIntValue(result) ?? 0;
+    if (result.isNotEmpty && result.first['count'] != null) {
+      return (result.first['count'] as num).toInt();
+    }
+    return 0;
   }
 
   Future<int> deletePlan(int id) async {
