@@ -6,6 +6,7 @@ import '../../core/utils/date_formatter.dart';
 import '../../providers/attendance_provider.dart';
 import '../../providers/dashboard_provider.dart';
 import '../../providers/finance_provider.dart';
+import '../../providers/settings_provider.dart';
 import '../../providers/trainee_provider.dart';
 import '../attendance/daily_attendance_screen.dart';
 import '../finance/plans_management_screen.dart';
@@ -43,11 +44,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appSettings = context.watch<SettingsProvider>().settings;
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: CustomAppBar(
-        title: AppStrings.appName,
-        subtitle: AppStrings.appTagline,
+        title: appSettings.clubName,
+        subtitle: appSettings.tagline,
         showLogo: true,
         actions: [
           IconButton(
@@ -55,12 +57,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
             tooltip: 'تحديث البيانات',
             onPressed: _refreshAll,
           ),
+          IconButton(
+            icon: const Icon(Icons.settings_outlined, color: Colors.white),
+            tooltip: 'الإعدادات',
+            onPressed: () => widget.onNavigateTab?.call(5),
+          ),
         ],
       ),
       body: Consumer<DashboardProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return Center(child: CircularProgressIndicator(color: AppColors.primary));
           }
 
           final today = DateTime.now();
@@ -104,13 +111,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                 ),
                               ),
                               const SizedBox(height: 4),
-                              const Text(
-                                'مرحباً بك في إدارة الأكاديمية 🏐',
-                                style: TextStyle(
+                              Text(
+                                'مرحباً بك في ${appSettings.clubName} 🏐',
+                                style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold,
                                 ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               const SizedBox(height: 4),
                               Text(
@@ -129,8 +138,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                             color: Colors.white.withOpacity(0.12),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(
-                            Icons.sports_volleyball,
+                          child: Icon(
+                            appSettings.icon,
                             color: AppColors.secondary,
                             size: 36,
                           ),

@@ -33,7 +33,12 @@ A complete, production-ready, offline-first Android management app designed spec
    - One-tap export to **formatted WhatsApp summary text** with Arabic emojis and statistics.
    - One-tap export to **UTF-8 Arabic CSV table** for direct opening in Microsoft Excel and Google Sheets.
 
-6. **🌍 Native Arabic (RTL) & Volleyball Theme**:
+6. **🎨 Settings & Branding Customization**:
+   - Edit the academy / group / team name, tagline, logo icon and primary & accent colors directly from the app.
+   - Changes apply instantly to the app bar, dashboard, navigation bar and all Material theme surfaces.
+   - Settings are stored in SQLite and persist across restarts, with a one-tap reset to defaults.
+
+7. **🌍 Native Arabic (RTL) & Volleyball Theme**:
    - Native Right-to-Left (RTL) Arabic typography and localized date/currency formatting.
    - Custom Volleyball visual identity: Deep Navy Blue (`#1A237E`) and Energetic Sunset Orange (`#FF6F00`).
 

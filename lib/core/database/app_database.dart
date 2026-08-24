@@ -21,8 +21,9 @@ class AppDatabase {
 
     return await openDatabase(
       path,
-      version: 1,
+      version: 2,
       onCreate: _createDB,
+      onUpgrade: _onUpgrade,
       onConfigure: _onConfigure,
     );
   }
@@ -88,8 +89,32 @@ class AppDatabase {
       )
     ''');
 
+    // 5. App Settings (branding / customization)
+    await _createSettingsTable(db);
+
     // Insert rich mock seed data on initial creation
     await SeedData.insertInitialData(db);
+  }
+
+  /// Handle schema migrations from older app versions.
+  Future<void> _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < 2) {
+      await _createSettingsTable(db);
+    }
+  }
+
+  Future<void> _createSettingsTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS app_settings (
+        id INTEGER PRIMARY KEY,
+        club_name TEXT NOT NULL,
+        tagline TEXT NOT NULL,
+        primary_color INTEGER NOT NULL,
+        secondary_color INTEGER NOT NULL,
+        icon_code TEXT NOT NULL,
+        show_logo INTEGER NOT NULL DEFAULT 1
+      )
+    ''');
   }
 
   /// Close Database

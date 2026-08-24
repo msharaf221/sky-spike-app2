@@ -66,7 +66,7 @@ class TraineeCard extends StatelessWidget {
                       backgroundColor: AppColors.primaryContainer,
                       child: Text(
                         trainee.name.trim().isNotEmpty ? trainee.name.trim()[0] : '🏐',
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: AppColors.primary,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
@@ -97,7 +97,7 @@ class TraineeCard extends StatelessWidget {
                                 ),
                                 child: Text(
                                   trainee.groupName,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontSize: 11,
                                     color: AppColors.primary,
                                     fontWeight: FontWeight.w600,
@@ -124,7 +124,7 @@ class TraineeCard extends StatelessWidget {
                         if (val == 'renew') onRenew();
                       },
                       itemBuilder: (ctx) => [
-                        const PopupMenuItem(
+                        PopupMenuItem(
                           value: 'pay',
                           child: Row(
                             children: [
@@ -134,7 +134,7 @@ class TraineeCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const PopupMenuItem(
+                        PopupMenuItem(
                           value: 'renew',
                           child: Row(
                             children: [
@@ -144,7 +144,7 @@ class TraineeCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const PopupMenuItem(
+                        PopupMenuItem(
                           value: 'edit',
                           child: Row(
                             children: [
@@ -154,7 +154,7 @@ class TraineeCard extends StatelessWidget {
                             ],
                           ),
                         ),
-                        const PopupMenuItem(
+                        PopupMenuItem(
                           value: 'delete',
                           child: Row(
                             children: [

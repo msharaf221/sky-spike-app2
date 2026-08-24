@@ -5,6 +5,7 @@ import 'attendance/daily_attendance_screen.dart';
 import 'dashboard/dashboard_screen.dart';
 import 'finance/finance_screen.dart';
 import 'reports/reports_screen.dart';
+import 'settings/settings_screen.dart';
 import 'trainees/trainees_list_screen.dart';
 
 /// Main Shell with Bottom Navigation Bar
@@ -30,6 +31,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       const DailyAttendanceScreen(),
       const FinanceScreen(),
       const ReportsScreen(),
+      const SettingsScreen(),
     ];
 
     return Scaffold(
@@ -54,31 +56,36 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
           backgroundColor: Colors.white,
           indicatorColor: AppColors.primaryContainer,
           elevation: 0,
-          destinations: const [
+          destinations: [
             NavigationDestination(
-              icon: Icon(Icons.dashboard_outlined, color: AppColors.textSecondary),
+              icon: const Icon(Icons.dashboard_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.dashboard, color: AppColors.primary),
               label: AppStrings.navDashboard,
             ),
             NavigationDestination(
-              icon: Icon(Icons.groups_outlined, color: AppColors.textSecondary),
+              icon: const Icon(Icons.groups_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.groups, color: AppColors.primary),
               label: AppStrings.navTrainees,
             ),
             NavigationDestination(
-              icon: Icon(Icons.fact_check_outlined, color: AppColors.textSecondary),
+              icon: const Icon(Icons.fact_check_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.fact_check, color: AppColors.primary),
               label: AppStrings.navAttendance,
             ),
             NavigationDestination(
-              icon: Icon(Icons.account_balance_wallet_outlined, color: AppColors.textSecondary),
+              icon: const Icon(Icons.account_balance_wallet_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.account_balance_wallet, color: AppColors.primary),
               label: AppStrings.navFinance,
             ),
             NavigationDestination(
-              icon: Icon(Icons.analytics_outlined, color: AppColors.textSecondary),
+              icon: const Icon(Icons.analytics_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.analytics, color: AppColors.primary),
               label: AppStrings.navReports,
+            ),
+            NavigationDestination(
+              icon: const Icon(Icons.settings_outlined, color: AppColors.textSecondary),
+              selectedIcon: Icon(Icons.settings, color: AppColors.primary),
+              label: 'الإعدادات',
             ),
           ],
         ),

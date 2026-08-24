@@ -11,7 +11,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.background,
       fontFamily: 'Cairo', // Arabic standard font support fallback
       
-      colorScheme: const ColorScheme.light(
+      colorScheme: ColorScheme.light(
         primary: AppColors.primary,
         onPrimary: AppColors.textOnPrimary,
         primaryContainer: AppColors.primaryContainer,
@@ -24,7 +24,7 @@ class AppTheme {
         onError: Colors.white,
       ),
 
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: AppColors.primary,
         foregroundColor: Colors.white,
         elevation: 0,
@@ -34,7 +34,7 @@ class AppTheme {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
 
       cardTheme: CardTheme(
@@ -66,7 +66,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.primary,
-          side: const BorderSide(color: AppColors.primary, width: 1.5),
+          side: BorderSide(color: AppColors.primary, width: 1.5),
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
@@ -114,7 +114,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: const BorderSide(color: AppColors.primary, width: 2),
+          borderSide: BorderSide(color: AppColors.primary, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
@@ -122,12 +122,12 @@ class AppTheme {
         ),
       ),
 
-      tabBarTheme: const TabBarTheme(
+      tabBarTheme: TabBarTheme(
         labelColor: AppColors.primary,
         unselectedLabelColor: AppColors.textSecondary,
         indicatorColor: AppColors.primary,
-        labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-        unselectedLabelStyle: TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
+        labelStyle: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+        unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.normal, fontSize: 15),
       ),
 
       dividerTheme: const DividerThemeData(

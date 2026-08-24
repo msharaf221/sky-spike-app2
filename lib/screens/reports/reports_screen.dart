@@ -93,7 +93,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 Row(
                   children: [
-                    const Icon(Icons.calendar_month, color: AppColors.secondary, size: 20),
+                    Icon(Icons.calendar_month, color: AppColors.secondary, size: 20),
                     const SizedBox(width: 8),
                     Text(
                       'تقرير شهر: ${DateFormat('MMMM yyyy', 'ar').format(_selectedMonth)}',
@@ -116,7 +116,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
           // Body Content
           Expanded(
             child: _isLoading
-                ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                ? Center(child: CircularProgressIndicator(color: AppColors.primary))
                 : _analytics == null
                     ? const Center(child: Text('لا توجد بيانات متاحة لهذا الشهر'))
                     : SingleChildScrollView(
@@ -172,7 +172,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                       ),
                                       Text(
                                         '${_analytics!.attendanceRate.toStringAsFixed(1)}%',
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                           fontSize: 18,
                                           fontWeight: FontWeight.w800,
                                           color: AppColors.primary,
@@ -187,7 +187,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                       value: _analytics!.attendanceRate / 100,
                                       minHeight: 10,
                                       backgroundColor: AppColors.surfaceVariant,
-                                      valueColor: const AlwaysStoppedAnimation<Color>(AppColors.primary),
+                                      valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
                                     ),
                                   ),
                                   const Divider(height: 24),
@@ -249,7 +249,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  const Icon(Icons.circle, size: 10, color: AppColors.secondary),
+                                                  Icon(Icons.circle, size: 10, color: AppColors.secondary),
                                                   const SizedBox(width: 8),
                                                   Text(
                                                     e.key,
@@ -303,7 +303,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                           ),
                                           child: Text(
                                             '${e.value} لاعب',
-                                            style: const TextStyle(
+                                            style: TextStyle(
                                               fontSize: 12,
                                               fontWeight: FontWeight.bold,
                                               color: AppColors.primary,

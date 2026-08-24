@@ -52,7 +52,7 @@ class PaymentHistoryTile extends StatelessWidget {
                   children: [
                     Text(
                       payment.localizedMethod,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         color: AppColors.primary,
                         fontWeight: FontWeight.w600,
