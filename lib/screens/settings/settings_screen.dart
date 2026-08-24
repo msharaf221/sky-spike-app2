@@ -212,6 +212,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (_) => setState(() {}),
               ),
 
+              _sectionHeader(AppStrings.teamsSection, Icons.groups_outlined),
+              Text(
+                AppStrings.teamsSectionHint,
+                style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
+              ),
+              const SizedBox(height: 8),
+              _buildTeamsManager(context),
+
               // ==== Appearance / Dark mode ====
               _sectionHeader(
                   AppStrings.appearanceSection, Icons.brightness_6_outlined),
@@ -645,5 +653,196 @@ class _SettingsScreenState extends State<SettingsScreen> {
         }).toList(),
       ),
     );
+  }
+
+  Widget _buildTeamsManager(BuildContext context) {
+    return Consumer<TeamProvider>(
+      builder: (context, teams, _) {
+        return Container(
+          decoration: BoxDecoration(
+            color: AppColors.surface,
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: AppColors.divider.withOpacity(0.8)),
+          ),
+          child: Column(
+            children: [
+              if (teams.isLoading)
+                const Padding(
+                  padding: EdgeInsets.all(16),
+                  child: CircularProgressIndicator(),
+                )
+              else if (teams.teams.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text(
+                    'لا توجد فرق بعد. أضف فريقاً للبدء.',
+                    style: TextStyle(color: AppColors.textSecondary),
+                  ),
+                )
+              else
+                ReorderableListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: teams.teams.length,
+                  onReorder: teams.reorder,
+                  buildDefaultDragHandles: false,
+                  itemBuilder: (context, index) {
+                    final team = teams.teams[index];
+                    return _teamTile(context, teams, team, index);
+                  },
+                ),
+              const Divider(height: 1),
+              TextButton.icon(
+                onPressed: () => _promptAddOrRename(context, teams),
+                icon: const Icon(Icons.add_circle_outline),
+                label: const Text(AppStrings.addTeam),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _teamTile(
+    BuildContext context,
+    TeamProvider teams,
+    TeamModel team,
+    int index,
+  ) {
+    return ListTile(
+      key: ValueKey(team.id ?? team.name),
+      leading: ReorderableDragStartListener(
+        index: index,
+        child: Icon(Icons.drag_handle, color: AppColors.textMuted),
+      ),
+      title: Text(
+        team.name,
+        style: TextStyle(
+          fontWeight: FontWeight.w700,
+          color: team.isActive
+              ? AppColors.textPrimary
+              : AppColors.textSecondary,
+          decoration: team.isActive ? null : TextDecoration.lineThrough,
+        ),
+      ),
+      subtitle: Text(
+        team.isActive ? 'نشط' : 'معطّل',
+        style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
+      ),
+      trailing: Wrap(
+        spacing: 0,
+        children: [
+          IconButton(
+            tooltip: AppStrings.renameTeam,
+            icon: const Icon(Icons.edit_outlined, size: 20),
+            onPressed: () => _promptAddOrRename(context, teams, existing: team),
+          ),
+          IconButton(
+            tooltip: team.isActive ? AppStrings.disableTeam : AppStrings.enableTeam,
+            icon: Icon(
+              team.isActive
+                  ? Icons.visibility_off_outlined
+                  : Icons.visibility_outlined,
+              size: 20,
+            ),
+            onPressed: () async {
+              final err = await teams.setActive(team, !team.isActive);
+              if (!context.mounted) return;
+              if (err != null) {
+                DialogHelper.showSnackBar(context, message: err, isError: true);
+              }
+            },
+          ),
+          IconButton(
+            tooltip: AppStrings.delete,
+            icon: Icon(Icons.delete_outline, size: 20, color: AppColors.error),
+            onPressed: () => _confirmDeleteTeam(context, teams, team),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _promptAddOrRename(
+    BuildContext context,
+    TeamProvider teams, {
+    TeamModel? existing,
+  }) async {
+    final controller = TextEditingController(text: existing?.name ?? '');
+    final result = await showDialog<String>(
+      context: context,
+      builder: (ctx) {
+        return AlertDialog(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          title: Text(existing == null ? AppStrings.addTeam : AppStrings.renameTeam),
+          content: TextField(
+            controller: controller,
+            autofocus: true,
+            decoration: const InputDecoration(
+              labelText: AppStrings.teamNameLabel,
+              hintText: 'مثال: الناشئون ج',
+            ),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(ctx),
+              child: const Text(AppStrings.cancel),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(ctx, controller.text.trim()),
+              child: const Text(AppStrings.save),
+            ),
+          ],
+        );
+      },
+    );
+    controller.dispose();
+    if (result == null || result.isEmpty) return;
+
+    final err = existing == null
+        ? await teams.addTeam(result)
+        : await teams.renameTeam(existing, result);
+    if (!context.mounted) return;
+    if (err != null) {
+      DialogHelper.showSnackBar(context, message: err, isError: true);
+    } else {
+      DialogHelper.showSnackBar(
+        context,
+        message: existing == null ? 'تمت إضافة الفريق' : 'تم تحديث اسم الفريق',
+        isSuccess: true,
+      );
+    }
+  }
+
+  Future<void> _confirmDeleteTeam(
+    BuildContext context,
+    TeamProvider teams,
+    TeamModel team,
+  ) async {
+    final count = await teams.traineeCount(team);
+    if (!context.mounted) return;
+    final confirmed = await DialogHelper.showConfirmDialog(
+      context,
+      title: 'حذف الفريق',
+      message: count > 0
+          ? 'لا يُنصح بالحذف: $count متدرب مرتبطون بهذا الاسم. إن استمررت سيُرفض الحذف — عطّل الفريق أو انقلهم أولاً.'
+          : 'حذف فريق «${team.name}» نهائياً؟',
+      confirmText: AppStrings.delete,
+      isDestructive: true,
+    );
+    if (!confirmed || !context.mounted) return;
+    final err = await teams.deleteTeam(team);
+    if (!context.mounted) return;
+    if (err != null) {
+      DialogHelper.showSnackBar(context, message: err, isError: true);
+    } else {
+      DialogHelper.showSnackBar(
+        context,
+        message: AppStrings.successDeleted,
+        isSuccess: true,
+      );
+    }
   }
 }
