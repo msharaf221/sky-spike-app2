@@ -54,7 +54,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
       body: Consumer<PlanProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return Center(child: CircularProgressIndicator(color: AppColors.primary));
           }
 
           if (provider.plans.isEmpty) {
@@ -95,7 +95,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                         color: AppColors.primaryContainer,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: const Icon(Icons.sports_volleyball, color: AppColors.primary, size: 26),
+                      child: Icon(Icons.sports_volleyball, color: AppColors.primary, size: 26),
                     ),
                     const SizedBox(width: 14),
                     Expanded(
@@ -115,7 +115,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                             children: [
                               Text(
                                 '${plan.sessionsCount} حصص تدريبية',
-                                style: const TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.w600),
+                                style: TextStyle(fontSize: 12, color: AppColors.primary, fontWeight: FontWeight.w600),
                               ),
                               const SizedBox(width: 8),
                               Text(
@@ -132,7 +132,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                       children: [
                         Text(
                           '${plan.price.toStringAsFixed(0)} ج.م',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 17,
                             fontWeight: FontWeight.w800,
                             color: AppColors.secondary,
@@ -142,7 +142,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                         Row(
                           children: [
                             IconButton(
-                              icon: const Icon(Icons.edit_outlined, color: AppColors.primary, size: 20),
+                              icon: Icon(Icons.edit_outlined, color: AppColors.primary, size: 20),
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
                               onPressed: () => _openPlanDialog(plan),

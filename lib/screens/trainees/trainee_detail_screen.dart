@@ -64,7 +64,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
       builder: (ctx) => StatefulBuilder(
         builder: (context, setDialogState) => AlertDialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-          title: const Row(
+          title: Row(
             children: [
               Icon(Icons.autorenew, color: AppColors.secondary),
               SizedBox(width: 8),
@@ -78,7 +78,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
               children: [
                 Text(
                   'المتدرب: ${trainee.name}',
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.primary),
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14, color: AppColors.primary),
                 ),
                 const SizedBox(height: 14),
 
@@ -226,7 +226,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
       body: Consumer<TraineeProvider>(
         builder: (context, provider, child) {
           if (provider.isLoading || provider.selectedTrainee == null) {
-            return const Center(child: CircularProgressIndicator(color: AppColors.primary));
+            return Center(child: CircularProgressIndicator(color: AppColors.primary));
           }
 
           final trainee = provider.selectedTrainee!;
@@ -277,7 +277,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                             ),
                             child: Text(
                               trainee.groupName,
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 12,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.primary,
@@ -328,7 +328,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                               const SizedBox(height: 4),
                               Text(
                                 '${trainee.attendedSessions} / ${trainee.totalSessions}',
-                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.primary),
                               ),
                               const SizedBox(height: 6),
                               BadgeTag.sessions(trainee.remainingSessions),
@@ -449,7 +449,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                                   children: [
                                     Row(
                                       children: [
-                                        const Icon(Icons.event_available, size: 20, color: AppColors.primary),
+                                        Icon(Icons.event_available, size: 20, color: AppColors.primary),
                                         const SizedBox(width: 10),
                                         Text(
                                           DateFormatter.formatStringDate(record.date),

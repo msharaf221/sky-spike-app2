@@ -43,11 +43,11 @@ class AppStyles {
   );
 
   // Numbers & Currency
-  static const TextStyle numberBig = TextStyle(
-    fontSize: 22,
-    fontWeight: FontWeight.w800,
-    color: AppColors.primary,
-  );
+  static TextStyle get numberBig => TextStyle(
+        fontSize: 22,
+        fontWeight: FontWeight.w800,
+        color: AppColors.primary,
+      );
 
   static const TextStyle numberMedium = TextStyle(
     fontSize: 16,
@@ -69,29 +69,29 @@ class AppStyles {
     ],
   );
 
-  static BoxDecoration heroCardDecoration = BoxDecoration(
-    gradient: AppColors.heroGradient,
-    borderRadius: BorderRadius.circular(20),
-    boxShadow: [
-      BoxShadow(
-        color: AppColors.primary.withOpacity(0.3),
-        blurRadius: 16,
-        offset: const Offset(0, 6),
-      ),
-    ],
-  );
+  static BoxDecoration get heroCardDecoration => BoxDecoration(
+        gradient: AppColors.heroGradient,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withOpacity(0.3),
+            blurRadius: 16,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      );
 
-  static BoxDecoration accentCardDecoration = BoxDecoration(
-    gradient: AppColors.accentGradient,
-    borderRadius: BorderRadius.circular(16),
-    boxShadow: [
-      BoxShadow(
-        color: AppColors.secondary.withOpacity(0.3),
-        blurRadius: 12,
-        offset: const Offset(0, 4),
-      ),
-    ],
-  );
+  static BoxDecoration get accentCardDecoration => BoxDecoration(
+        gradient: AppColors.accentGradient,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.secondary.withOpacity(0.3),
+            blurRadius: 12,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      );
 
   // Input Field Decoration Helper
   static InputDecoration inputDecoration({
@@ -118,7 +118,7 @@ class AppStyles {
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),
-        borderSide: const BorderSide(color: AppColors.primary, width: 2),
+        borderSide: BorderSide(color: AppColors.primary, width: 2),
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(12),

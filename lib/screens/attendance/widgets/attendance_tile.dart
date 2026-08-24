@@ -58,7 +58,7 @@ class AttendanceTile extends StatelessWidget {
                       backgroundColor: AppColors.primaryContainer,
                       child: Text(
                         trainee.name.isNotEmpty ? trainee.name[0] : '🏐',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 13,
                           fontWeight: FontWeight.bold,
                           color: AppColors.primary,

@@ -94,7 +94,7 @@ class _TraineesListScreenState extends State<TraineesListScreen> {
                       onChanged: (val) => provider.setSearchQuery(val),
                       decoration: InputDecoration(
                         hintText: AppStrings.searchTraineePlaceholder,
-                        prefixIcon: const Icon(Icons.search, color: AppColors.primaryLight),
+                        prefixIcon: Icon(Icons.search, color: AppColors.primaryLight),
                         suffixIcon: _searchController.text.isNotEmpty
                             ? IconButton(
                                 icon: const Icon(Icons.clear, size: 18),
@@ -161,7 +161,7 @@ class _TraineesListScreenState extends State<TraineesListScreen> {
               // Trainees List View
               Expanded(
                 child: provider.isLoading
-                    ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                    ? Center(child: CircularProgressIndicator(color: AppColors.primary))
                     : provider.trainees.isEmpty
                         ? EmptyStateView(
                             title: 'لا يوجد متدربون مطابقون للبحث',

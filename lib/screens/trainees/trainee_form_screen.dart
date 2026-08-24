@@ -131,7 +131,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(primary: AppColors.primary),
+            colorScheme: ColorScheme.light(primary: AppColors.primary),
           ),
           child: child!,
         );
@@ -444,7 +444,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
                                 ),
                                 child: Row(
                                   children: [
-                                    const Icon(Icons.calendar_month, color: AppColors.primaryLight, size: 20),
+                                    Icon(Icons.calendar_month, color: AppColors.primaryLight, size: 20),
                                     const SizedBox(width: 8),
                                     Expanded(
                                       child: Text(

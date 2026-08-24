@@ -79,7 +79,7 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(primary: AppColors.primary),
+            colorScheme: ColorScheme.light(primary: AppColors.primary),
           ),
           child: child!,
         );
@@ -297,7 +297,7 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
                       ),
                       child: Row(
                         children: [
-                          const Icon(Icons.calendar_today, color: AppColors.primaryLight, size: 20),
+                          Icon(Icons.calendar_today, color: AppColors.primaryLight, size: 20),
                           const SizedBox(width: 8),
                           Text(
                             DateFormatter.toArabicDate(_paymentDate),

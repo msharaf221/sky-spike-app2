@@ -35,7 +35,7 @@ class _DailyAttendanceScreenState extends State<DailyAttendanceScreen> {
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
-            colorScheme: const ColorScheme.light(primary: AppColors.primary),
+            colorScheme: ColorScheme.light(primary: AppColors.primary),
           ),
           child: child!,
         );
@@ -171,7 +171,7 @@ class _DailyAttendanceScreenState extends State<DailyAttendanceScreen> {
               // 5. Roll Call List
               Expanded(
                 child: provider.isLoading
-                    ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                    ? Center(child: CircularProgressIndicator(color: AppColors.primary))
                     : provider.rollCallList.isEmpty
                         ? const EmptyStateView(
                             title: AppStrings.noTraineesInGroup,

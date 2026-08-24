@@ -80,7 +80,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Row(
+              Row(
                 children: [
                   Icon(Icons.ios_share, color: AppColors.primary),
                   SizedBox(width: 8),
@@ -114,7 +114,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
               side: const BorderSide(color: AppColors.divider),
             ),
             tileColor: AppColors.successContainer.withOpacity(0.3),
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               backgroundColor: Color(0xFF25D366),
               child: Icon(Icons.message, color: Colors.white, size: 20),
             ),
@@ -141,7 +141,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
               side: const BorderSide(color: AppColors.divider),
             ),
             tileColor: AppColors.primaryContainer.withOpacity(0.3),
-            leading: const CircleAvatar(
+            leading: CircleAvatar(
               backgroundColor: AppColors.primary,
               child: Icon(Icons.table_chart, color: Colors.white, size: 20),
             ),
@@ -155,7 +155,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
             ),
             trailing: _isExporting
                 ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2))
-                : const Icon(Icons.copy, color: AppColors.primary),
+                : Icon(Icons.copy, color: AppColors.primary),
             onTap: _isExporting ? null : _exportAsCsv,
           ),
 

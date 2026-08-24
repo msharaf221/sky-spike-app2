@@ -140,7 +140,7 @@ class _FinanceScreenState extends State<FinanceScreen> with SingleTickerProvider
               // 3. Tab Views Content
               Expanded(
                 child: provider.isLoading
-                    ? const Center(child: CircularProgressIndicator(color: AppColors.primary))
+                    ? Center(child: CircularProgressIndicator(color: AppColors.primary))
                     : TabBarView(
                         controller: _tabController,
                         children: [
