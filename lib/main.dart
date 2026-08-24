@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
+import 'core/constants/app_colors.dart';
 import 'core/theme/app_theme.dart';
 import 'providers/attendance_provider.dart';
 import 'providers/dashboard_provider.dart';
@@ -13,7 +15,7 @@ import 'screens/main_navigation_screen.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Load persisted branding settings before building the app.
+  // Load persisted branding & appearance settings before building the app.
   final settingsProvider = SettingsProvider();
   await settingsProvider.load();
 
@@ -33,17 +35,55 @@ void main() async {
 }
 
 /// Root Application Widget for Sky Spike Volleyball Academy
-class SkySpikeApp extends StatelessWidget {
+class SkySpikeApp extends StatefulWidget {
   const SkySpikeApp({super.key});
+
+  @override
+  State<SkySpikeApp> createState() => _SkySpikeAppState();
+}
+
+class _SkySpikeAppState extends State<SkySpikeApp>
+    with WidgetsBindingObserver {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  /// Keep the palette in sync when the OS flips light/dark and the user is on
+  /// "follow system" mode.
+  @override
+  void didChangePlatformBrightness() {
+    super.didChangePlatformBrightness();
+    context.read<SettingsProvider>().reapplyFromStore();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Consumer<SettingsProvider>(
       builder: (context, settingsProvider, child) {
+        final isDark = settingsProvider.isDarkActive;
+
+        // Rebuild the palette for the active brightness before the themes are
+        // read, so brand colors and neutrals stay consistent.
+        AppPalette.isDark = isDark;
+        AppPalette.apply(
+          primary: settingsProvider.settings.primary,
+          secondary: settingsProvider.settings.secondary,
+        );
+
         return MaterialApp(
           title: settingsProvider.settings.clubName,
           debugShowCheckedModeBanner: false,
           theme: AppTheme.lightTheme,
+          darkTheme: AppTheme.darkTheme,
+          themeMode: settingsProvider.themeMode,
 
           // Arabic RTL Localization Configuration
           locale: const Locale('ar', 'EG'),
@@ -51,16 +91,37 @@ class SkySpikeApp extends StatelessWidget {
             Locale('ar', 'EG'),
             Locale('ar'),
           ],
-          localizationsDelegates: [
+          localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
 
           builder: (context, child) {
-            return Directionality(
-              textDirection: TextDirection.rtl,
-              child: child ?? const SizedBox(),
+            // Re-assert the palette for the brightness Flutter actually chose
+            // (matters for ThemeMode.system).
+            final resolvedDark =
+                Theme.of(context).brightness == Brightness.dark;
+            if (AppPalette.isDark != resolvedDark) {
+              AppPalette.isDark = resolvedDark;
+              AppPalette.apply(
+                primary: settingsProvider.settings.primary,
+                secondary: settingsProvider.settings.secondary,
+              );
+            }
+
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle(
+                statusBarColor: Colors.transparent,
+                statusBarIconBrightness: Brightness.light,
+                systemNavigationBarColor: AppColors.surface,
+                systemNavigationBarIconBrightness:
+                    resolvedDark ? Brightness.light : Brightness.dark,
+              ),
+              child: Directionality(
+                textDirection: TextDirection.rtl,
+                child: child ?? const SizedBox(),
+              ),
             );
           },
 

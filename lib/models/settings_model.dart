@@ -43,6 +43,67 @@ class SettingsIcons {
   }
 }
 
+/// Selectable app appearance modes.
+enum AppThemeMode { light, dark, system }
+
+extension AppThemeModeX on AppThemeMode {
+  String get code {
+    switch (this) {
+      case AppThemeMode.light:
+        return 'light';
+      case AppThemeMode.dark:
+        return 'dark';
+      case AppThemeMode.system:
+        return 'system';
+    }
+  }
+
+  String get label {
+    switch (this) {
+      case AppThemeMode.light:
+        return AppStrings.themeLight;
+      case AppThemeMode.dark:
+        return AppStrings.themeDark;
+      case AppThemeMode.system:
+        return AppStrings.themeSystem;
+    }
+  }
+
+  IconData get icon {
+    switch (this) {
+      case AppThemeMode.light:
+        return Icons.light_mode_rounded;
+      case AppThemeMode.dark:
+        return Icons.dark_mode_rounded;
+      case AppThemeMode.system:
+        return Icons.brightness_auto_rounded;
+    }
+  }
+
+  ThemeMode get materialMode {
+    switch (this) {
+      case AppThemeMode.light:
+        return ThemeMode.light;
+      case AppThemeMode.dark:
+        return ThemeMode.dark;
+      case AppThemeMode.system:
+        return ThemeMode.system;
+    }
+  }
+
+  static AppThemeMode fromCode(String? code) {
+    switch (code) {
+      case 'dark':
+        return AppThemeMode.dark;
+      case 'system':
+        return AppThemeMode.system;
+      case 'light':
+      default:
+        return AppThemeMode.light;
+    }
+  }
+}
+
 /// App branding & customization settings (club / group / team details).
 class SettingsModel {
   final String clubName;
@@ -52,6 +113,12 @@ class SettingsModel {
   final String iconCode;
   final bool showLogo;
 
+  /// Use the official Sky Spike logo asset instead of a Material icon.
+  final bool useLogoAsset;
+
+  /// Light / dark / follow-system appearance.
+  final AppThemeMode themeMode;
+
   const SettingsModel({
     required this.clubName,
     required this.tagline,
@@ -59,16 +126,20 @@ class SettingsModel {
     required this.secondaryColor,
     required this.iconCode,
     required this.showLogo,
+    required this.useLogoAsset,
+    required this.themeMode,
   });
 
   factory SettingsModel.defaults() {
     return const SettingsModel(
       clubName: AppStrings.appName,
       tagline: AppStrings.appTagline,
-      primaryColor: 0xFF1A237E,
+      primaryColor: 0xFF0B2A5B,
       secondaryColor: 0xFFFF6F00,
       iconCode: 'volleyball',
       showLogo: true,
+      useLogoAsset: true,
+      themeMode: AppThemeMode.light,
     );
   }
 
@@ -84,6 +155,8 @@ class SettingsModel {
     int? secondaryColor,
     String? iconCode,
     bool? showLogo,
+    bool? useLogoAsset,
+    AppThemeMode? themeMode,
   }) {
     return SettingsModel(
       clubName: clubName ?? this.clubName,
@@ -92,6 +165,8 @@ class SettingsModel {
       secondaryColor: secondaryColor ?? this.secondaryColor,
       iconCode: iconCode ?? this.iconCode,
       showLogo: showLogo ?? this.showLogo,
+      useLogoAsset: useLogoAsset ?? this.useLogoAsset,
+      themeMode: themeMode ?? this.themeMode,
     );
   }
 
@@ -104,6 +179,8 @@ class SettingsModel {
       'secondary_color': secondaryColor,
       'icon_code': iconCode,
       'show_logo': showLogo ? 1 : 0,
+      'use_logo_asset': useLogoAsset ? 1 : 0,
+      'theme_mode': themeMode.code,
     };
   }
 
@@ -116,6 +193,8 @@ class SettingsModel {
       secondaryColor: (map['secondary_color'] as int?) ?? defaults.secondaryColor,
       iconCode: (map['icon_code'] as String?) ?? defaults.iconCode,
       showLogo: (map['show_logo'] as int? ?? 1) == 1,
+      useLogoAsset: (map['use_logo_asset'] as int? ?? 1) == 1,
+      themeMode: AppThemeModeX.fromCode(map['theme_mode'] as String?),
     );
   }
 }

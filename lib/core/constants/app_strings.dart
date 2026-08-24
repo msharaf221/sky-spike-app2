@@ -125,4 +125,35 @@ class AppStrings {
   static const String successDeleted = 'تم الحذف بنجاح';
   static const String errorOccurred = 'حدث خطأ أثناء العملية، يرجى المحاولة مرة أخرى';
   static const String noDataAvailable = 'لا توجد بيانات متاحة حالياً';
+
+  // Settings / Appearance
+  static const String navSettings = 'الإعدادات';
+  static const String settingsTitle = 'الإعدادات والتخصيص';
+  static const String settingsSubtitle = 'بيانات الأكاديمية، المظهر، الألوان واللوجو';
+  static const String appearanceSection = 'المظهر والوضع الليلي';
+  static const String themeMode = 'وضع العرض';
+  static const String themeLight = 'فاتح';
+  static const String themeDark = 'ليلي';
+  static const String themeSystem = 'تلقائي';
+  static const String themeLightHint = 'ألوان فاتحة مناسبة للنهار';
+  static const String themeDarkHint = 'ألوان داكنة مريحة للعين ليلاً';
+  static const String themeSystemHint = 'يتبع إعدادات نظام الهاتف';
+  static const String useOfficialLogo = 'استخدام اللوجو الرسمي';
+  static const String useOfficialLogoHint = 'شعار سكاي سبايك بدلاً من الأيقونة';
+
+  // Teams / Groups
+  static const String teamBaraem = 'البراعم';
+  static const String teamNasheenA = 'الناشئون أ';
+  static const String teamNasheenB = 'الناشئون ب';
+  static const String teamShabab = 'الشباب';
+  static const String teamFirst = 'الفريق الأول';
+
+  /// Canonical ordered list of Sky Spike teams / age groups.
+  static const List<String> teams = [
+    teamBaraem,
+    teamNasheenA,
+    teamNasheenB,
+    teamShabab,
+    teamFirst,
+  ];
 }

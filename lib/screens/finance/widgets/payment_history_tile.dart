@@ -20,7 +20,7 @@ class PaymentHistoryTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.divider.withOpacity(0.8)),
       ),
@@ -32,7 +32,7 @@ class PaymentHistoryTile extends StatelessWidget {
               color: AppColors.successContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.check, color: AppColors.success, size: 20),
+            child: Icon(Icons.check, color: AppColors.success, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -41,7 +41,7 @@ class PaymentHistoryTile extends StatelessWidget {
               children: [
                 Text(
                   payment.traineeName ?? 'متدرب',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
@@ -61,7 +61,7 @@ class PaymentHistoryTile extends StatelessWidget {
                     const SizedBox(width: 6),
                     Text(
                       '• ${DateFormatter.formatStringDate(payment.date)}',
-                      style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                      style: TextStyle(fontSize: 11, color: AppColors.textMuted),
                     ),
                   ],
                 ),
@@ -69,7 +69,7 @@ class PaymentHistoryTile extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     payment.notes!,
-                    style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                    style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
                   ),
                 ],
               ],
@@ -80,7 +80,7 @@ class PaymentHistoryTile extends StatelessWidget {
             children: [
               Text(
                 '${payment.amount.toStringAsFixed(0)} ج.م',
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.w800,
                   color: AppColors.success,
@@ -88,7 +88,7 @@ class PaymentHistoryTile extends StatelessWidget {
               ),
               if (onDelete != null)
                 IconButton(
-                  icon: const Icon(Icons.delete_outline, color: AppColors.error, size: 18),
+                  icon: Icon(Icons.delete_outline, color: AppColors.error, size: 18),
                   padding: EdgeInsets.zero,
                   constraints: const BoxConstraints(),
                   onPressed: onDelete,

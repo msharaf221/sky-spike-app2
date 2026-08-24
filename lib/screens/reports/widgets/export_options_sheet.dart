@@ -69,8 +69,8 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Column(
@@ -95,13 +95,13 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
                 ],
               ),
               IconButton(
-                icon: const Icon(Icons.close, color: AppColors.textMuted),
+                icon: Icon(Icons.close, color: AppColors.textMuted),
                 onPressed: () => Navigator.pop(context),
               ),
             ],
           ),
           const Divider(height: 16),
-          const Text(
+          Text(
             'اختر طريقة تصدير البيانات ومشاركتها:',
             style: TextStyle(fontSize: 13, color: AppColors.textSecondary),
           ),
@@ -111,7 +111,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
           ListTile(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-              side: const BorderSide(color: AppColors.divider),
+              side: BorderSide(color: AppColors.divider),
             ),
             tileColor: AppColors.successContainer.withOpacity(0.3),
             leading: CircleAvatar(
@@ -122,7 +122,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
               'نسخ تقرير الواتساب المنسق',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
-            subtitle: const Text(
+            subtitle: Text(
               'نص مهيأ مع الإيموجي والإحصائيات للإرسال إلى الإدارة وأولياء الأمور',
               style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
             ),
@@ -138,7 +138,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
           ListTile(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(12),
-              side: const BorderSide(color: AppColors.divider),
+              side: BorderSide(color: AppColors.divider),
             ),
             tileColor: AppColors.primaryContainer.withOpacity(0.3),
             leading: CircleAvatar(
@@ -149,7 +149,7 @@ class _ExportOptionsSheetState extends State<ExportOptionsSheet> {
               'نسخ بيانات المتدربين كاملة (CSV / Excel)',
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
             ),
-            subtitle: const Text(
+            subtitle: Text(
               'جدول بيانات مفصل يدعم اللغة العربية لبرامج Excel و Google Sheets',
               style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
             ),

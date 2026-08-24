@@ -231,7 +231,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                 border: Border.all(color: AppColors.divider),
                               ),
                               child: _analytics!.paymentMethodsBreakdown.isEmpty
-                                  ? const Center(
+                                  ? Center(
                                       child: Padding(
                                         padding: EdgeInsets.all(12.0),
                                         child: Text(
@@ -259,7 +259,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                                               ),
                                               Text(
                                                 '${e.value.toStringAsFixed(0)} ج.م',
-                                                style: const TextStyle(
+                                                style: TextStyle(
                                                   fontWeight: FontWeight.bold,
                                                   color: AppColors.textPrimary,
                                                   fontSize: 14,
@@ -354,7 +354,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         const SizedBox(width: 8),
         Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 15,
             fontWeight: FontWeight.bold,
             color: AppColors.textPrimary,
@@ -373,7 +373,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
     return Container(
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: color.withOpacity(0.3)),
       ),
@@ -402,7 +402,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
                 ),
                 Text(
                   title,
-                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 11, color: AppColors.textSecondary, fontWeight: FontWeight.w600),
                 ),
               ],
             ),
@@ -427,7 +427,7 @@ class _ReportsScreenState extends State<ReportsScreen> {
         ),
         Text(
           label,
-          style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
         ),
       ],
     );

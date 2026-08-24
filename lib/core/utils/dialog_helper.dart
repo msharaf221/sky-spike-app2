@@ -67,14 +67,14 @@ class DialogHelper {
         ),
         content: Text(
           message,
-          style: const TextStyle(color: AppColors.textSecondary, fontSize: 14),
+          style: TextStyle(color: AppColors.textSecondary, fontSize: 14),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
             child: Text(
               cancelText,
-              style: const TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.bold),
+              style: TextStyle(color: AppColors.textSecondary, fontWeight: FontWeight.bold),
             ),
           ),
           ElevatedButton(

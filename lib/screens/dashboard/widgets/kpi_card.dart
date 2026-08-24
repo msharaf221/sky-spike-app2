@@ -59,7 +59,7 @@ class KpiCard extends StatelessWidget {
                     child: Icon(icon, color: iconColor, size: 22),
                   ),
                   if (onTap != null)
-                    const Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.textMuted),
+                    Icon(Icons.arrow_forward_ios, size: 14, color: AppColors.textMuted),
                 ],
               ),
               const SizedBox(height: 12),
@@ -68,7 +68,7 @@ class KpiCard extends StatelessWidget {
                 children: [
                   Text(
                     value,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w800,
                       color: AppColors.textPrimary,
@@ -77,7 +77,7 @@ class KpiCard extends StatelessWidget {
                   const SizedBox(height: 4),
                   Text(
                     title,
-                    style: const TextStyle(
+                    style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: AppColors.textSecondary,
@@ -87,7 +87,7 @@ class KpiCard extends StatelessWidget {
                     const SizedBox(height: 2),
                     Text(
                       subtitle!,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontSize: 11,
                         color: AppColors.textMuted,
                       ),

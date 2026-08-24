@@ -31,7 +31,7 @@ class CustomDropdown<T> extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,
@@ -43,22 +43,22 @@ class CustomDropdown<T> extends StatelessWidget {
             items: items,
             onChanged: onChanged,
             validator: validator,
-            style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
+            style: TextStyle(fontSize: 14, color: AppColors.textPrimary),
             decoration: InputDecoration(
               hintText: hint,
               prefixIcon: prefixIcon != null
                   ? Icon(prefixIcon, color: AppColors.primaryLight, size: 20)
                   : null,
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.elevatedSurface,
               contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.divider),
+                borderSide: BorderSide(color: AppColors.divider),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.divider, width: 1.2),
+                borderSide: BorderSide(color: AppColors.divider, width: 1.2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),

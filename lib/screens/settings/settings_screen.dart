@@ -5,6 +5,7 @@ import '../../core/constants/app_strings.dart';
 import '../../core/utils/dialog_helper.dart';
 import '../../models/settings_model.dart';
 import '../../providers/settings_provider.dart';
+import '../../widgets/app_logo.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_text_field.dart';
 
@@ -51,22 +52,33 @@ class _SettingsScreenState extends State<SettingsScreen> {
   ];
 
   late SettingsModel _draft;
+  late final SettingsProvider _settings;
   late final TextEditingController _nameController;
   late final TextEditingController _taglineController;
 
   @override
   void initState() {
     super.initState();
-    _draft = context.read<SettingsProvider>().settings;
+    // Cached so dispose() never touches an unmounted BuildContext.
+    _settings = context.read<SettingsProvider>();
+    _draft = _settings.settings;
     _nameController = TextEditingController(text: _draft.clubName);
     _taglineController = TextEditingController(text: _draft.tagline);
   }
 
   @override
   void dispose() {
+    // Drop any unsaved palette preview.
+    _settings.reapplyFromStore();
     _nameController.dispose();
     _taglineController.dispose();
     super.dispose();
+  }
+
+  /// Update the working copy and live-preview it across the whole app.
+  void _updateDraft(SettingsModel Function(SettingsModel) mutate) {
+    setState(() => _draft = mutate(_draft));
+    _settings.previewPalette(_draft);
   }
 
   Future<void> _save(SettingsProvider settingsProvider) async {
@@ -101,7 +113,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     final confirmed = await DialogHelper.showConfirmDialog(
       context,
       title: 'إعادة ضبط الإعدادات',
-      message: 'هل تريد استعادة الاسم والألوان وأيقونة الشعار الافتراضية؟',
+      message: 'هل تريد استعادة الاسم والألوان والمظهر وأيقونة الشعار الافتراضية؟',
       confirmText: 'استعادة الافتراضي',
     );
     if (!confirmed || !mounted) return;
@@ -146,7 +158,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           const SizedBox(width: 10),
           Text(
             title,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 15,
               fontWeight: FontWeight.w700,
               color: AppColors.textPrimary,
@@ -200,17 +212,36 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onChanged: (_) => setState(() {}),
               ),
 
+              // ==== Appearance / Dark mode ====
+              _sectionHeader(
+                  AppStrings.appearanceSection, Icons.brightness_6_outlined),
+              _buildThemeModePicker(),
+
               // ==== Logo / Icon ====
               _sectionHeader('اللوجو والأيقونة', Icons.emoji_objects_outlined),
-              _buildIconPicker(),
+              _buildToggle(
+                title: AppStrings.useOfficialLogo,
+                subtitle: AppStrings.useOfficialLogoHint,
+                value: _draft.useLogoAsset,
+                onChanged: (value) =>
+                    _updateDraft((d) => d.copyWith(useLogoAsset: value)),
+              ),
+              const SizedBox(height: 12),
+              AnimatedOpacity(
+                opacity: _draft.useLogoAsset ? 0.45 : 1,
+                duration: const Duration(milliseconds: 180),
+                child: IgnorePointer(
+                  ignoring: _draft.useLogoAsset,
+                  child: _buildIconPicker(),
+                ),
+              ),
               const SizedBox(height: 12),
               _buildToggle(
                 title: 'إظهار اللوجو في شريط التطبيق',
                 subtitle: 'يظهر في الشريط العلوي لكل الشاشات',
                 value: _draft.showLogo,
-                onChanged: (value) => setState(() {
-                  _draft = _draft.copyWith(showLogo: value);
-                }),
+                onChanged: (value) =>
+                    _updateDraft((d) => d.copyWith(showLogo: value)),
               ),
 
               // ==== Primary Color ====
@@ -218,9 +249,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildColorGrid(
                 options: _primaryOptions,
                 selected: _draft.primaryColor,
-                onSelected: (value) => setState(
-                  () => _draft = _draft.copyWith(primaryColor: value),
-                ),
+                onSelected: (value) =>
+                    _updateDraft((d) => d.copyWith(primaryColor: value)),
               ),
 
               // ==== Secondary / Accent Color ====
@@ -228,9 +258,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
               _buildColorGrid(
                 options: _secondaryOptions,
                 selected: _draft.secondaryColor,
-                onSelected: (value) => setState(
-                  () => _draft = _draft.copyWith(secondaryColor: value),
-                ),
+                onSelected: (value) =>
+                    _updateDraft((d) => d.copyWith(secondaryColor: value)),
               ),
 
               const SizedBox(height: 28),
@@ -296,19 +325,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       child: Row(
         children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: _draft.secondary,
-              shape: BoxShape.circle,
-              boxShadow: [
-                BoxShadow(
-                  color: _draft.secondary.withOpacity(0.45),
-                  blurRadius: 8,
-                ),
-              ],
-            ),
-            child: Icon(_draft.icon, color: Colors.white, size: 30),
+          AppLogoMark(
+            settings: _draft,
+            size: 58,
+            padding: 10,
+            borderRadius: 29,
+            badgeColor: _draft.secondary,
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -345,8 +367,18 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     _smallSwatch(_draft.primary),
                     const SizedBox(width: 6),
                     _smallSwatch(_draft.secondary),
-                    const SizedBox(width: 6),
-                    Icon(_draft.icon, color: colorScheme.onPrimary, size: 16),
+                    const SizedBox(width: 8),
+                    Icon(_draft.themeMode.icon,
+                        color: colorScheme.onPrimary, size: 15),
+                    const SizedBox(width: 4),
+                    Text(
+                      _draft.themeMode.label,
+                      style: TextStyle(
+                        color: Colors.white.withOpacity(0.9),
+                        fontSize: 11,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                   ],
                 ),
               ],
@@ -369,6 +401,97 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  Widget _buildThemeModePicker() {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: AppColors.surface,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: AppColors.divider.withOpacity(0.8)),
+      ),
+      child: Column(
+        children: AppThemeMode.values.map((mode) {
+          final selected = _draft.themeMode == mode;
+          final hint = switch (mode) {
+            AppThemeMode.light => AppStrings.themeLightHint,
+            AppThemeMode.dark => AppStrings.themeDarkHint,
+            AppThemeMode.system => AppStrings.themeSystemHint,
+          };
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 3),
+            child: InkWell(
+              onTap: () => _updateDraft((d) => d.copyWith(themeMode: mode)),
+              borderRadius: BorderRadius.circular(12),
+              child: AnimatedContainer(
+                duration: const Duration(milliseconds: 160),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+                decoration: BoxDecoration(
+                  color: selected
+                      ? AppColors.primaryContainer
+                      : AppColors.background,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: selected ? AppColors.primary : AppColors.divider,
+                    width: selected ? 2 : 1,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Icon(
+                      mode.icon,
+                      size: 22,
+                      color: selected
+                          ? AppColors.primary
+                          : AppColors.textSecondary,
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            mode.label,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: selected
+                                  ? FontWeight.bold
+                                  : FontWeight.w600,
+                              color: selected
+                                  ? AppColors.primary
+                                  : AppColors.textPrimary,
+                            ),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            hint,
+                            style: TextStyle(
+                              fontSize: 11,
+                              color: AppColors.textSecondary,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Icon(
+                      selected
+                          ? Icons.radio_button_checked
+                          : Icons.radio_button_unchecked,
+                      size: 20,
+                      color: selected
+                          ? AppColors.primary
+                          : AppColors.textMuted,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        }).toList(),
+      ),
+    );
+  }
+
   Widget _buildToggle({
     required String title,
     required String subtitle,
@@ -378,7 +501,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.divider.withOpacity(0.8)),
       ),
@@ -386,7 +509,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         contentPadding: EdgeInsets.zero,
         title: Text(
           title,
-          style: const TextStyle(
+          style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 14,
             color: AppColors.textPrimary,
@@ -394,7 +517,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ),
         subtitle: Text(
           subtitle,
-          style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+          style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
         ),
         activeColor: AppColors.primary,
         value: value,
@@ -407,7 +530,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.divider.withOpacity(0.8)),
       ),
@@ -417,9 +540,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
         children: SettingsIcons.options.map((option) {
           final selected = _draft.iconCode == option.code;
           return InkWell(
-            onTap: () => setState(
-              () => _draft = _draft.copyWith(iconCode: option.code),
-            ),
+            onTap: () => _updateDraft((d) => d.copyWith(iconCode: option.code)),
             borderRadius: BorderRadius.circular(12),
             child: Container(
               width: 74,
@@ -467,7 +588,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(color: AppColors.divider.withOpacity(0.8)),
       ),

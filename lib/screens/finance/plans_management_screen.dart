@@ -104,7 +104,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                         children: [
                           Text(
                             plan.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary,
@@ -120,7 +120,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                               const SizedBox(width: 8),
                               Text(
                                 '• مدة ${plan.durationDays} يوم',
-                                style: const TextStyle(fontSize: 12, color: AppColors.textMuted),
+                                style: TextStyle(fontSize: 12, color: AppColors.textMuted),
                               ),
                             ],
                           ),
@@ -149,7 +149,7 @@ class _PlansManagementScreenState extends State<PlansManagementScreen> {
                             ),
                             const SizedBox(width: 10),
                             IconButton(
-                              icon: const Icon(Icons.delete_outline, color: AppColors.error, size: 20),
+                              icon: Icon(Icons.delete_outline, color: AppColors.error, size: 20),
                               padding: EdgeInsets.zero,
                               constraints: const BoxConstraints(),
                               onPressed: () async {

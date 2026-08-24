@@ -119,7 +119,7 @@ class _TraineesListScreenState extends State<TraineesListScreen> {
                         scrollDirection: Axis.horizontal,
                         child: Row(
                           children: [
-                            const Text('التصفيات: ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                            Text('التصفيات: ', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                             if (provider.selectedGroup != 'الكل')
                               Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 2.0),

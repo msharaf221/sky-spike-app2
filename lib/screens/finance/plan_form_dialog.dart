@@ -171,7 +171,7 @@ class _PlanFormDialogState extends State<PlanFormDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text(AppStrings.cancel, style: TextStyle(color: AppColors.textSecondary)),
+          child: Text(AppStrings.cancel, style: TextStyle(color: AppColors.textSecondary)),
         ),
         ElevatedButton(
           style: ElevatedButton.styleFrom(

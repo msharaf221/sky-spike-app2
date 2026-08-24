@@ -20,7 +20,7 @@ class DebtCard extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.all(14),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(color: AppColors.error.withOpacity(0.3)),
         boxShadow: [
@@ -39,7 +39,7 @@ class DebtCard extends StatelessWidget {
               color: AppColors.errorContainer,
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.money_off, color: AppColors.error, size: 20),
+            child: Icon(Icons.money_off, color: AppColors.error, size: 20),
           ),
           const SizedBox(width: 12),
           Expanded(
@@ -48,7 +48,7 @@ class DebtCard extends StatelessWidget {
               children: [
                 Text(
                   trainee.name,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
                     color: AppColors.textPrimary,
@@ -59,19 +59,19 @@ class DebtCard extends StatelessWidget {
                   children: [
                     Text(
                       trainee.groupName,
-                      style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                      style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
                     ),
                     const SizedBox(width: 6),
                     Text(
                       '• ${trainee.phone}',
-                      style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                      style: TextStyle(fontSize: 11, color: AppColors.textMuted),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
                   'مدفوع: ${trainee.paidAmount.toStringAsFixed(0)} ج.م / الإجمالي: ${trainee.totalFee.toStringAsFixed(0)} ج.م',
-                  style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                  style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
                 ),
               ],
             ),

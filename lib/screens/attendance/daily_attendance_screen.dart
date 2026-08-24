@@ -150,16 +150,16 @@ class _DailyAttendanceScreenState extends State<DailyAttendanceScreen> {
                   children: [
                     TextButton.icon(
                       onPressed: () => provider.markAll('Present'),
-                      icon: const Icon(Icons.done_all, size: 16, color: AppColors.present),
-                      label: const Text(
+                      icon: Icon(Icons.done_all, size: 16, color: AppColors.present),
+                      label: Text(
                         AppStrings.markAllPresent,
                         style: TextStyle(color: AppColors.present, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
                     ),
                     TextButton.icon(
                       onPressed: () => provider.markAll('Absent'),
-                      icon: const Icon(Icons.close, size: 16, color: AppColors.absent),
-                      label: const Text(
+                      icon: Icon(Icons.close, size: 16, color: AppColors.absent),
+                      label: Text(
                         AppStrings.markAllAbsent,
                         style: TextStyle(color: AppColors.absent, fontWeight: FontWeight.bold, fontSize: 12),
                       ),
@@ -208,10 +208,10 @@ class _DailyAttendanceScreenState extends State<DailyAttendanceScreen> {
           return Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.surface,
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withOpacity(0.06),
+                  color: Colors.black.withOpacity(AppColors.isDark ? 0.35 : 0.06),
                   blurRadius: 10,
                   offset: const Offset(0, -3),
                 ),
