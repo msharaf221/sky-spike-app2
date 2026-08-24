@@ -22,19 +22,20 @@ jobs:
       - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
+          flutter-version: '3.22.2'
           channel: 'stable'
           cache: true
 
-      - name: Auto Generate Android Folder
+      - name: Configure Android Project
         run: |
-          flutter create . --platforms=android --org=com.skyspike
+          flutter create . --platforms=android --org=com.skyspike --project-name=sky_spike_app
           rm -rf test
 
       - name: Get Dependencies
         run: flutter pub get
 
       - name: Build APK
-        run: flutter build apk --release --verbose
+        run: flutter build apk --release --no-tree-shake-icons
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
