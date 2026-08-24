@@ -44,7 +44,7 @@ class SkySpikeApp extends StatelessWidget {
         Locale('ar', 'EG'),
         Locale('ar'),
       ],
-      localizationsDelegates: const [
+      localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
