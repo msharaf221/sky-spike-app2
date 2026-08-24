@@ -53,7 +53,7 @@ class AlertCard extends StatelessWidget {
                   children: [
                     Text(
                       trainee.name,
-                      style: const TextStyle(
+                      style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 14,
                         color: AppColors.textPrimary,
@@ -69,7 +69,7 @@ class AlertCard extends StatelessWidget {
                       ),
                       child: Text(
                         trainee.groupName,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 10,
                           color: AppColors.textSecondary,
                           fontWeight: FontWeight.w600,

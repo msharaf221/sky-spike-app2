@@ -42,7 +42,7 @@ class CustomTextField extends StatelessWidget {
         children: [
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: AppColors.textPrimary,
@@ -58,24 +58,24 @@ class CustomTextField extends StatelessWidget {
             readOnly: readOnly,
             onTap: onTap,
             onChanged: onChanged,
-            style: const TextStyle(fontSize: 14, color: AppColors.textPrimary),
+            style: TextStyle(fontSize: 14, color: AppColors.textPrimary),
             decoration: InputDecoration(
               hintText: hint,
-              hintStyle: const TextStyle(color: AppColors.textMuted, fontSize: 13),
+              hintStyle: TextStyle(color: AppColors.textMuted, fontSize: 13),
               prefixIcon: prefixIcon != null
                   ? Icon(prefixIcon, color: AppColors.primaryLight, size: 20)
                   : null,
               suffixIcon: suffix,
               filled: true,
-              fillColor: Colors.white,
+              fillColor: AppColors.elevatedSurface,
               contentPadding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.divider),
+                borderSide: BorderSide(color: AppColors.divider),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.divider, width: 1.2),
+                borderSide: BorderSide(color: AppColors.divider, width: 1.2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
@@ -83,7 +83,7 @@ class CustomTextField extends StatelessWidget {
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10),
-                borderSide: const BorderSide(color: AppColors.error, width: 1.2),
+                borderSide: BorderSide(color: AppColors.error, width: 1.2),
               ),
             ),
           ),

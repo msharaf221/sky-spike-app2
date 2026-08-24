@@ -23,7 +23,7 @@ class AttendanceSummaryBar extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         border: Border(bottom: BorderSide(color: AppColors.divider.withOpacity(0.8))),
       ),
       child: Row(
@@ -54,7 +54,7 @@ class AttendanceSummaryBar extends StatelessWidget {
         const SizedBox(height: 2),
         Text(
           label,
-          style: const TextStyle(
+          style: TextStyle(
             fontSize: 11,
             color: AppColors.textSecondary,
             fontWeight: FontWeight.w600,

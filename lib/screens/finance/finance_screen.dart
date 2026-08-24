@@ -246,7 +246,7 @@ class _FinanceScreenState extends State<FinanceScreen> with SingleTickerProvider
               ),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 11,
                   color: AppColors.textSecondary,
                   fontWeight: FontWeight.w600,

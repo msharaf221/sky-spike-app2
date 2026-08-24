@@ -142,8 +142,8 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
         right: 20,
         bottom: MediaQuery.of(context).viewInsets.bottom + 20,
       ),
-      decoration: const BoxDecoration(
-        color: Colors.white,
+      decoration: BoxDecoration(
+        color: AppColors.surface,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
       child: Form(
@@ -157,7 +157,7 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Icon(Icons.account_balance_wallet, color: AppColors.success),
                       SizedBox(width: 8),
@@ -172,7 +172,7 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
                     ],
                   ),
                   IconButton(
-                    icon: const Icon(Icons.close, color: AppColors.textMuted),
+                    icon: Icon(Icons.close, color: AppColors.textMuted),
                     onPressed: () => Navigator.pop(context),
                   ),
                 ],
@@ -200,13 +200,13 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
                           ),
                           Text(
                             'المجموعة: ${_selectedTrainee!.groupName}',
-                            style: const TextStyle(fontSize: 12, color: AppColors.textSecondary),
+                            style: TextStyle(fontSize: 12, color: AppColors.textSecondary),
                           ),
                         ],
                       ),
                       Text(
                         'المتبقي: ${_selectedTrainee!.remainingDebt.toStringAsFixed(0)} ج.م',
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontWeight: FontWeight.bold,
                           color: AppColors.error,
                           fontSize: 13,
@@ -280,7 +280,7 @@ class _RecordPaymentDialogState extends State<RecordPaymentDialog> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     AppStrings.paymentDate,
                     style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                   ),

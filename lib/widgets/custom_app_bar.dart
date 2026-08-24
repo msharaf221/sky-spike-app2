@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../core/constants/app_colors.dart';
 import '../providers/settings_provider.dart';
+import 'app_logo.dart';
 
 /// Sky Spike Volleyball Custom App Bar
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -47,23 +48,12 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             children: [
               if (leading != null) leading!,
               if (showLogo && settings.showLogo) ...[
-                Container(
-                  padding: const EdgeInsets.all(8),
-                  decoration: BoxDecoration(
-                    color: AppColors.secondary,
-                    borderRadius: BorderRadius.circular(12),
-                    boxShadow: [
-                      BoxShadow(
-                        color: AppColors.secondary.withOpacity(0.4),
-                        blurRadius: 6,
-                      ),
-                    ],
-                  ),
-                  child: Icon(
-                    settings.icon,
-                    color: Colors.white,
-                    size: 24,
-                  ),
+                AppLogoMark(
+                  settings: settings,
+                  size: 40,
+                  padding: 8,
+                  borderRadius: 12,
+                  badgeColor: AppColors.secondary,
                 ),
                 const SizedBox(width: 12),
               ],

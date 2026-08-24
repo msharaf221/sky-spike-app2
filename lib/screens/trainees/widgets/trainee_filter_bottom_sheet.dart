@@ -14,8 +14,8 @@ class TraineeFilterBottomSheet extends StatelessWidget {
       builder: (context, provider, child) {
         return Container(
           padding: const EdgeInsets.all(20),
-          decoration: const BoxDecoration(
-            color: Colors.white,
+          decoration: BoxDecoration(
+            color: AppColors.surface,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
@@ -26,7 +26,7 @@ class TraineeFilterBottomSheet extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     'تصفية المتدربين',
                     style: TextStyle(
                       fontSize: 18,
@@ -39,7 +39,7 @@ class TraineeFilterBottomSheet extends StatelessWidget {
                       provider.resetFilters();
                       Navigator.pop(context);
                     },
-                    child: const Text(
+                    child: Text(
                       'إعادة ضبط',
                       style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold),
                     ),
@@ -50,7 +50,7 @@ class TraineeFilterBottomSheet extends StatelessWidget {
               const Divider(),
 
               // Group Filter
-              const Text(
+              Text(
                 'المجموعة / الفريق',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
               ),
@@ -76,7 +76,7 @@ class TraineeFilterBottomSheet extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Status Filter
-              const Text(
+              Text(
                 'حالة الاشتراك',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
               ),
@@ -102,7 +102,7 @@ class TraineeFilterBottomSheet extends StatelessWidget {
               const SizedBox(height: 16),
 
               // Payment Status Filter
-              const Text(
+              Text(
                 'الموقف المالي',
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
               ),

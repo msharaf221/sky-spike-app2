@@ -33,7 +33,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
   late TextEditingController _paidAmountController;
   late TextEditingController _notesController;
 
-  String _selectedGroup = 'ناشئين أ';
+  String _selectedGroup = AppStrings.teamNasheenA;
   bool _isCustomGroup = false;
   PlanModel? _selectedPlan;
   String _status = 'Active';
@@ -42,12 +42,8 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
   bool _isSubmitting = false;
 
   final List<String> _predefinedGroups = [
-    'ناشئين أ',
-    'ناشئين ب',
-    'فريق الشباب',
-    'الفريق الأول',
-    'أكاديمية البراعم',
-    'أخرى (مجموعة مخصصة)'
+    ...AppStrings.teams,
+    'أخرى (مجموعة مخصصة)',
   ];
 
   @override
@@ -427,7 +423,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text(
+                            Text(
                               AppStrings.joinDate,
                               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: AppColors.textPrimary),
                             ),
@@ -507,7 +503,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: AppColors.divider.withOpacity(0.8)),
       ),
@@ -520,7 +516,7 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
               const SizedBox(width: 8),
               Text(
                 title,
-                style: const TextStyle(
+                style: TextStyle(
                   fontSize: 15,
                   fontWeight: FontWeight.bold,
                   color: AppColors.textPrimary,

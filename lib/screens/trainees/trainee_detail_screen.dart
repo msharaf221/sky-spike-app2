@@ -150,7 +150,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(ctx),
-              child: const Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
+              child: Text('إلغاء', style: TextStyle(color: AppColors.textSecondary)),
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
@@ -257,7 +257,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                       const SizedBox(height: 12),
                       Text(
                         trainee.name,
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary,
@@ -324,7 +324,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('رصيد الحصص', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                              Text('رصيد الحصص', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(
                                 '${trainee.attendedSessions} / ${trainee.totalSessions}',
@@ -349,11 +349,11 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Text('الموقف المالي', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
+                              Text('الموقف المالي', style: TextStyle(fontSize: 12, color: AppColors.textMuted)),
                               const SizedBox(height: 4),
                               Text(
                                 '${trainee.paidAmount.toStringAsFixed(0)} / ${trainee.totalFee.toStringAsFixed(0)} ج.م',
-                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
+                                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                               ),
                               const SizedBox(height: 6),
                               BadgeTag.debt(trainee.remainingDebt),
@@ -435,7 +435,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                     children: [
                       // Attendance History List
                       provider.traineeAttendanceHistory.isEmpty
-                          ? const Center(
+                          ? Center(
                               child: Text('لا توجد سجلات حضور مسجلة حتى الآن', style: TextStyle(color: AppColors.textMuted)),
                             )
                           : ListView.separated(
@@ -465,7 +465,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
 
                       // Payment History List
                       provider.traineePaymentHistory.isEmpty
-                          ? const Center(
+                          ? Center(
                               child: Text('لا توجد مدفوعات مسجلة حتى الآن', style: TextStyle(color: AppColors.textMuted)),
                             )
                           : ListView.separated(
@@ -482,7 +482,7 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                                       children: [
                                         Text(
                                           '${payment.amount.toStringAsFixed(0)} ج.م',
-                                          style: const TextStyle(
+                                          style: TextStyle(
                                             fontWeight: FontWeight.bold,
                                             fontSize: 15,
                                             color: AppColors.success,
@@ -491,16 +491,16 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
                                         const SizedBox(height: 2),
                                         Text(
                                           '${payment.localizedMethod} • ${DateFormatter.formatStringDate(payment.date)}',
-                                          style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                                          style: TextStyle(fontSize: 11, color: AppColors.textMuted),
                                         ),
                                         if (payment.notes != null && payment.notes!.isNotEmpty)
                                           Text(
                                             payment.notes!,
-                                            style: const TextStyle(fontSize: 11, color: AppColors.textSecondary),
+                                            style: TextStyle(fontSize: 11, color: AppColors.textSecondary),
                                           ),
                                       ],
                                     ),
-                                    const Icon(Icons.check_circle_outline, color: AppColors.success, size: 22),
+                                    Icon(Icons.check_circle_outline, color: AppColors.success, size: 22),
                                   ],
                                 );
                               },
@@ -524,11 +524,11 @@ class _TraineeDetailScreenState extends State<TraineeDetailScreen> with SingleTi
         const SizedBox(height: 4),
         Text(
           text,
-          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textPrimary),
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: AppColors.textPrimary),
         ),
         Text(
           label,
-          style: const TextStyle(fontSize: 10, color: AppColors.textMuted),
+          style: TextStyle(fontSize: 10, color: AppColors.textMuted),
         ),
       ],
     );

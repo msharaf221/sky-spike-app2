@@ -21,7 +21,7 @@ class AppDatabase {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
       onConfigure: _onConfigure,
@@ -101,6 +101,58 @@ class AppDatabase {
     if (oldVersion < 2) {
       await _createSettingsTable(db);
     }
+    if (oldVersion < 3) {
+      // v3: dark mode + official logo asset columns.
+      await _addColumnIfMissing(
+        db,
+        table: 'app_settings',
+        column: 'use_logo_asset',
+        definition: 'INTEGER NOT NULL DEFAULT 1',
+      );
+      await _addColumnIfMissing(
+        db,
+        table: 'app_settings',
+        column: 'theme_mode',
+        definition: "TEXT NOT NULL DEFAULT 'light'",
+      );
+      // v3: rename legacy team / group names to the official ones.
+      await _renameLegacyGroups(db);
+    }
+  }
+
+  /// Add a column only when it is not already present (safe re-runs).
+  Future<void> _addColumnIfMissing(
+    Database db, {
+    required String table,
+    required String column,
+    required String definition,
+  }) async {
+    final info = await db.rawQuery('PRAGMA table_info($table)');
+    final exists = info.any((row) => row['name'] == column);
+    if (!exists) {
+      await db.execute('ALTER TABLE $table ADD COLUMN $column $definition');
+    }
+  }
+
+  /// Map old group labels onto the official Sky Spike team names.
+  static const Map<String, String> _legacyGroupRenames = {
+    'ناشئين أ': 'الناشئون أ',
+    'ناشئين ب': 'الناشئون ب',
+    'فريق الشباب': 'الشباب',
+    'أكاديمية البراعم': 'البراعم',
+  };
+
+  Future<void> _renameLegacyGroups(Database db) async {
+    final batch = db.batch();
+    _legacyGroupRenames.forEach((oldName, newName) {
+      batch.update(
+        'trainees',
+        {'group_name': newName},
+        where: 'group_name = ?',
+        whereArgs: [oldName],
+      );
+    });
+    await batch.commit(noResult: true);
   }
 
   Future<void> _createSettingsTable(Database db) async {
@@ -112,7 +164,9 @@ class AppDatabase {
         primary_color INTEGER NOT NULL,
         secondary_color INTEGER NOT NULL,
         icon_code TEXT NOT NULL,
-        show_logo INTEGER NOT NULL DEFAULT 1
+        show_logo INTEGER NOT NULL DEFAULT 1,
+        use_logo_asset INTEGER NOT NULL DEFAULT 1,
+        theme_mode TEXT NOT NULL DEFAULT 'light'
       )
     ''');
   }

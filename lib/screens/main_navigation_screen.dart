@@ -41,10 +41,10 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: AppColors.surface,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.06),
+              color: Colors.black.withOpacity(AppColors.isDark ? 0.35 : 0.06),
               blurRadius: 10,
               offset: const Offset(0, -3),
             ),
@@ -53,39 +53,39 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
         child: NavigationBar(
           selectedIndex: _currentIndex,
           onDestinationSelected: _onTabSelected,
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.surface,
           indicatorColor: AppColors.primaryContainer,
           elevation: 0,
           destinations: [
             NavigationDestination(
-              icon: const Icon(Icons.dashboard_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.dashboard_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.dashboard, color: AppColors.primary),
               label: AppStrings.navDashboard,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.groups_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.groups_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.groups, color: AppColors.primary),
               label: AppStrings.navTrainees,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.fact_check_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.fact_check_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.fact_check, color: AppColors.primary),
               label: AppStrings.navAttendance,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.account_balance_wallet_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.account_balance_wallet_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.account_balance_wallet, color: AppColors.primary),
               label: AppStrings.navFinance,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.analytics_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.analytics_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.analytics, color: AppColors.primary),
               label: AppStrings.navReports,
             ),
             NavigationDestination(
-              icon: const Icon(Icons.settings_outlined, color: AppColors.textSecondary),
+              icon: Icon(Icons.settings_outlined, color: AppColors.textSecondary),
               selectedIcon: Icon(Icons.settings, color: AppColors.primary),
-              label: 'الإعدادات',
+              label: AppStrings.navSettings,
             ),
           ],
         ),

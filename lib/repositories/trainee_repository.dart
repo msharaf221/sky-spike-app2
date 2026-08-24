@@ -1,4 +1,5 @@
 import 'package:sqflite/sqflite.dart';
+import '../core/constants/app_strings.dart';
 import '../core/database/app_database.dart';
 import '../models/trainee_model.dart';
 
@@ -181,7 +182,7 @@ class TraineeRepository {
     );
     final groups = maps.map((e) => e['group_name'] as String).toList();
     if (groups.isEmpty) {
-      return ['ناشئين أ', 'ناشئين ب', 'فريق الشباب', 'الفريق الأول', 'أكاديمية البراعم'];
+      return List<String>.from(AppStrings.teams);
     }
     return groups;
   }

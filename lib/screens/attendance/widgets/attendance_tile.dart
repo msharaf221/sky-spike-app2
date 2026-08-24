@@ -23,7 +23,7 @@ class AttendanceTile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 10),
       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(14),
         border: Border.all(
           color: currentStatus == 'Present'
@@ -72,7 +72,7 @@ class AttendanceTile extends StatelessWidget {
                         children: [
                           Text(
                             trainee.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 14,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary,
@@ -82,7 +82,7 @@ class AttendanceTile extends StatelessWidget {
                           ),
                           Text(
                             'حضر (${trainee.attendedSessions}/${trainee.totalSessions}) حصة',
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 11,
                               color: AppColors.textSecondary,
                             ),

@@ -151,7 +151,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(height: 20),
 
                   // 2. Quick Actions Row
-                  const Text(
+                  Text(
                     AppStrings.quickActions,
                     style: TextStyle(
                       fontSize: 16,
@@ -224,7 +224,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   const SizedBox(height: 24),
 
                   // 3. KPI Grid (2x2)
-                  const Text(
+                  Text(
                     'مؤشرات الأداء الرئيسية (KPIs)',
                     style: TextStyle(
                       fontSize: 16,
@@ -286,7 +286,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text(
+                      Text(
                         AppStrings.alertsSection,
                         style: TextStyle(
                           fontSize: 16,
@@ -326,7 +326,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(color: AppColors.divider),
                       ),
-                      child: const Column(
+                      child: Column(
                         children: [
                           Icon(Icons.verified_outlined, color: AppColors.success, size: 36),
                           SizedBox(height: 8),
@@ -349,7 +349,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         padding: const EdgeInsets.only(bottom: 6.0),
                         child: Text(
                           '⚠️ ${AppStrings.zeroSessionsAlert} (${provider.zeroSessionsTrainees.length}):',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: AppColors.warning,
@@ -378,7 +378,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         padding: const EdgeInsets.only(bottom: 6.0),
                         child: Text(
                           '🚨 ${AppStrings.unpaidDebtsAlert} (${provider.unpaidDebtTrainees.length}):',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: AppColors.error,

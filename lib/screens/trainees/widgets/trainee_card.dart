@@ -32,7 +32,7 @@ class TraineeCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
           color: trainee.hasZeroSessions || trainee.remainingDebt > 0
@@ -80,7 +80,7 @@ class TraineeCard extends StatelessWidget {
                         children: [
                           Text(
                             trainee.name,
-                            style: const TextStyle(
+                            style: TextStyle(
                               fontSize: 15,
                               fontWeight: FontWeight.bold,
                               color: AppColors.textPrimary,
@@ -107,7 +107,7 @@ class TraineeCard extends StatelessWidget {
                               const SizedBox(width: 6),
                               Text(
                                 '${trainee.age} سنة',
-                                style: const TextStyle(fontSize: 11, color: AppColors.textMuted),
+                                style: TextStyle(fontSize: 11, color: AppColors.textMuted),
                               ),
                             ],
                           ),
@@ -116,7 +116,7 @@ class TraineeCard extends StatelessWidget {
                     ),
                     BadgeTag.status(trainee.status),
                     PopupMenuButton<String>(
-                      icon: const Icon(Icons.more_vert, color: AppColors.textSecondary, size: 20),
+                      icon: Icon(Icons.more_vert, color: AppColors.textSecondary, size: 20),
                       onSelected: (val) {
                         if (val == 'edit') onEdit();
                         if (val == 'delete') onDelete();
@@ -180,7 +180,7 @@ class TraineeCard extends StatelessWidget {
                       children: [
                         Text(
                           'الحصص: ${trainee.attendedSessions} من ${trainee.totalSessions} (${(progress * 100).toInt()}%)',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 12,
                             fontWeight: FontWeight.w600,
                             color: AppColors.textSecondary,
@@ -210,11 +210,11 @@ class TraineeCard extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const Icon(Icons.card_membership_outlined, size: 14, color: AppColors.textMuted),
+                        Icon(Icons.card_membership_outlined, size: 14, color: AppColors.textMuted),
                         const SizedBox(width: 4),
                         Text(
                           trainee.planName ?? 'باقة الاشتراك',
-                          style: const TextStyle(
+                          style: TextStyle(
                             fontSize: 11,
                             color: AppColors.textSecondary,
                             fontWeight: FontWeight.w500,

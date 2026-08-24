@@ -1,0 +1,33 @@
+diff --git a/.github/workflows/android.yml b/.github/workflows/android.yml
+index 2cee597..16c3598 100644
+--- a/.github/workflows/android.yml
++++ b/.github/workflows/android.yml
+@@ -3,6 +3,8 @@ name: Build Android APK
+ on:
+   push:
+     branches: [ main, master ]
++  pull_request:
++    branches: [ main, master ]
+   workflow_dispatch:
+ 
+ jobs:
+@@ -31,6 +33,19 @@ jobs:
+           flutter create . --platforms=android --org=com.skyspike --project-name=sky_spike_app
+           rm -rf test
+ 
++      - name: Install Pillow
++        run: python3 -m pip install --quiet --upgrade pillow
++
++      # Runs AFTER `flutter create`, which regenerates the default launcher
++      # icons and would otherwise overwrite the branded ones.
++      - name: Generate Launcher Icons from Logo
++        run: python3 tool/generate_launcher_icons.py assets/images/sky_spike_logo.png android/app/src/main/res
++
++      - name: Set Application Name
++        run: |
++          sed -i 's/android:label="[^"]*"/android:label="Sky Spike"/' android/app/src/main/AndroidManifest.xml
++          grep -n 'android:label' android/app/src/main/AndroidManifest.xml
++
+       - name: Get Dependencies
+         run: flutter pub get
+ 

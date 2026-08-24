@@ -24,7 +24,7 @@ class BadgeTag extends StatelessWidget {
     switch (status) {
       case 'Active':
       case 'نشط':
-        return const BadgeTag(
+        return BadgeTag(
           text: 'نشط',
           backgroundColor: AppColors.successContainer,
           textColor: AppColors.success,
@@ -32,7 +32,7 @@ class BadgeTag extends StatelessWidget {
         );
       case 'Suspended':
       case 'موقوف':
-        return const BadgeTag(
+        return BadgeTag(
           text: 'موقوف',
           backgroundColor: AppColors.warningContainer,
           textColor: AppColors.warning,
@@ -41,7 +41,7 @@ class BadgeTag extends StatelessWidget {
       case 'Expired':
       case 'منتهي':
       default:
-        return const BadgeTag(
+        return BadgeTag(
           text: 'منتهي',
           backgroundColor: AppColors.errorContainer,
           textColor: AppColors.error,
@@ -54,7 +54,7 @@ class BadgeTag extends StatelessWidget {
     switch (status) {
       case 'Present':
       case 'حاضر':
-        return const BadgeTag(
+        return BadgeTag(
           text: 'حاضر',
           backgroundColor: AppColors.successContainer,
           textColor: AppColors.success,
@@ -62,7 +62,7 @@ class BadgeTag extends StatelessWidget {
         );
       case 'Absent':
       case 'غائب':
-        return const BadgeTag(
+        return BadgeTag(
           text: 'غائب',
           backgroundColor: AppColors.errorContainer,
           textColor: AppColors.error,
@@ -71,7 +71,7 @@ class BadgeTag extends StatelessWidget {
       case 'Excused':
       case 'معتذر':
       default:
-        return const BadgeTag(
+        return BadgeTag(
           text: 'معتذر',
           backgroundColor: AppColors.warningContainer,
           textColor: AppColors.warning,
@@ -82,7 +82,7 @@ class BadgeTag extends StatelessWidget {
 
   factory BadgeTag.debt(double debtAmount) {
     if (debtAmount <= 0) {
-      return const BadgeTag(
+      return BadgeTag(
         text: 'خالص السداد',
         backgroundColor: AppColors.successContainer,
         textColor: AppColors.success,
@@ -100,7 +100,7 @@ class BadgeTag extends StatelessWidget {
 
   factory BadgeTag.sessions(int remaining) {
     if (remaining <= 0) {
-      return const BadgeTag(
+      return BadgeTag(
         text: 'استنفذ الحصص (0)',
         backgroundColor: AppColors.errorContainer,
         textColor: AppColors.error,
