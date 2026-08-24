@@ -8,6 +8,22 @@ class SeedData {
     final yesterday = DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 1)));
     final twoDaysAgo = DateFormat('yyyy-MM-dd').format(DateTime.now().subtract(const Duration(days: 2)));
 
+    // 0. Official teams (schema v4) — editable later from Settings.
+    const teams = [
+      'البراعم',
+      'الناشئون أ',
+      'الناشئون ب',
+      'الشباب',
+      'الفريق الأول',
+    ];
+    for (var i = 0; i < teams.length; i++) {
+      await db.insert('teams', {
+        'name': teams[i],
+        'sort_order': i,
+        'is_active': 1,
+      });
+    }
+
     // 1. Insert Subscription Plans
     await db.insert('plans', {
       'id': 1,

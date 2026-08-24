@@ -174,11 +174,25 @@ class TraineeRepository {
     });
   }
 
-  /// Distinct groups for dropdowns & filters
+  /// Distinct groups for dropdowns & filters.
+  /// Prefer the ordered `teams` table (schema v4); fall back to trainee values.
   Future<List<String>> getDistinctGroups() async {
     final db = await _appDb.database;
+    try {
+      final teamMaps = await db.query(
+        'teams',
+        columns: ['name'],
+        where: 'is_active = 1',
+        orderBy: 'sort_order ASC, id ASC',
+      );
+      final fromTable = teamMaps.map((e) => e['name'] as String).toList();
+      if (fromTable.isNotEmpty) return fromTable;
+    } catch (_) {
+      // Table may not exist on a pre-v4 open that failed to migrate.
+    }
+
     final List<Map<String, dynamic>> maps = await db.rawQuery(
-      'SELECT DISTINCT group_name FROM trainees WHERE group_name IS NOT NULL AND group_name != "" ORDER BY group_name ASC',
+      "SELECT DISTINCT group_name FROM trainees WHERE group_name IS NOT NULL AND group_name != '' ORDER BY group_name ASC",
     );
     final groups = maps.map((e) => e['group_name'] as String).toList();
     if (groups.isEmpty) {

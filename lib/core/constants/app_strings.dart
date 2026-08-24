@@ -142,6 +142,14 @@ class AppStrings {
   static const String useOfficialLogoHint = 'شعار سكاي سبايك بدلاً من الأيقونة';
 
   // Teams / Groups
+  static const String teamsSection = 'إدارة الفرق';
+  static const String teamsSectionHint =
+      'إعادة تسمية، إضافة، ترتيب بالسحب، تعطيل أو حذف الفرق';
+  static const String addTeam = 'إضافة فريق';
+  static const String renameTeam = 'إعادة تسمية الفريق';
+  static const String disableTeam = 'تعطيل';
+  static const String enableTeam = 'تفعيل';
+  static const String teamNameLabel = 'اسم الفريق';
   static const String teamBaraem = 'البراعم';
   static const String teamNasheenA = 'الناشئون أ';
   static const String teamNasheenB = 'الناشئون ب';

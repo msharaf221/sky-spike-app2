@@ -21,7 +21,7 @@ class AppDatabase {
 
     return await openDatabase(
       path,
-      version: 3,
+      version: 4,
       onCreate: _createDB,
       onUpgrade: _onUpgrade,
       onConfigure: _onConfigure,
@@ -92,6 +92,9 @@ class AppDatabase {
     // 5. App Settings (branding / customization)
     await _createSettingsTable(db);
 
+    // 6. Teams / groups (editable names, order, active flag)
+    await _createTeamsTable(db);
+
     // Insert rich mock seed data on initial creation
     await SeedData.insertInitialData(db);
   }
@@ -117,6 +120,10 @@ class AppDatabase {
       );
       // v3: rename legacy team / group names to the official ones.
       await _renameLegacyGroups(db);
+    }
+    if (oldVersion < 4) {
+      await _createTeamsTable(db);
+      await _seedDefaultTeams(db);
     }
   }
 
@@ -152,6 +159,59 @@ class AppDatabase {
         whereArgs: [oldName],
       );
     });
+    await batch.commit(noResult: true);
+  }
+
+  Future<void> _createTeamsTable(Database db) async {
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS teams (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        sort_order INTEGER NOT NULL DEFAULT 0,
+        is_active INTEGER NOT NULL DEFAULT 1
+      )
+    ''');
+  }
+
+  /// Seed official Sky Spike teams if the table is empty (fresh v4 or upgrade).
+  Future<void> _seedDefaultTeams(Database db) async {
+    final count = Sqflite.firstIntValue(
+          await db.rawQuery('SELECT COUNT(*) FROM teams'),
+        ) ??
+        0;
+    if (count > 0) return;
+
+    final existing = await db.rawQuery(
+      'SELECT DISTINCT group_name FROM trainees WHERE group_name IS NOT NULL AND group_name != ""',
+    );
+    final names = existing
+        .map((row) => row['group_name'] as String)
+        .where((n) => n.trim().isNotEmpty)
+        .toList();
+
+    const defaults = [
+      'البراعم',
+      'الناشئون أ',
+      'الناشئون ب',
+      'الشباب',
+      'الفريق الأول',
+    ];
+    final ordered = <String>[];
+    for (final name in defaults) {
+      if (!ordered.contains(name)) ordered.add(name);
+    }
+    for (final name in names) {
+      if (!ordered.contains(name)) ordered.add(name);
+    }
+
+    final batch = db.batch();
+    for (var i = 0; i < ordered.length; i++) {
+      batch.insert('teams', {
+        'name': ordered[i],
+        'sort_order': i,
+        'is_active': 1,
+      });
+    }
     await batch.commit(noResult: true);
   }
 

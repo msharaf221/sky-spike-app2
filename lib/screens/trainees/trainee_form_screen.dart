@@ -8,6 +8,7 @@ import '../../core/utils/dialog_helper.dart';
 import '../../models/plan_model.dart';
 import '../../models/trainee_model.dart';
 import '../../providers/plan_provider.dart';
+import '../../providers/team_provider.dart';
 import '../../providers/trainee_provider.dart';
 import '../../widgets/custom_app_bar.dart';
 import '../../widgets/custom_dropdown.dart';
@@ -41,10 +42,13 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
   String _paymentMethod = 'Cash';
   bool _isSubmitting = false;
 
-  final List<String> _predefinedGroups = [
-    ...AppStrings.teams,
-    'أخرى (مجموعة مخصصة)',
-  ];
+  static const String _customGroupLabel = 'أخرى (مجموعة مخصصة)';
+
+  List<String> _groupChoices(BuildContext context) {
+    final fromDb = context.watch<TeamProvider>().activeNames;
+    final names = fromDb.isNotEmpty ? fromDb : List<String>.from(AppStrings.teams);
+    return [...names, _customGroupLabel];
+  }
 
   @override
   void initState() {
@@ -60,13 +64,8 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
     _notesController = TextEditingController();
 
     if (t != null) {
-      if (_predefinedGroups.contains(t.groupName)) {
-        _selectedGroup = t.groupName;
-      } else {
-        _selectedGroup = 'أخرى (مجموعة مخصصة)';
-        _isCustomGroup = true;
-        _customGroupController.text = t.groupName;
-      }
+      _selectedGroup = t.groupName;
+    }
       _status = t.status;
       try {
         _joinDate = DateTime.parse(t.joinDate);
@@ -74,6 +73,21 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
     }
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
+      final teams = context.read<TeamProvider>();
+      teams.load().then((_) {
+        if (!mounted || t == null) return;
+        final names = teams.activeNames;
+        setState(() {
+          if (names.contains(t.groupName)) {
+            _selectedGroup = t.groupName;
+            _isCustomGroup = false;
+          } else {
+            _selectedGroup = _customGroupLabel;
+            _isCustomGroup = true;
+            _customGroupController.text = t.groupName;
+          }
+        });
+      });
       context.read<PlanProvider>().loadPlans().then((_) {
         final plans = context.read<PlanProvider>().plans;
         if (plans.isNotEmpty && mounted) {
@@ -285,14 +299,14 @@ class _TraineeFormScreenState extends State<TraineeFormScreen> {
                           label: AppStrings.groupName,
                           value: _selectedGroup,
                           prefixIcon: Icons.groups_outlined,
-                          items: _predefinedGroups.map((g) {
+                          items: groupChoices.map((g) {
                             return DropdownMenuItem(value: g, child: Text(g, style: const TextStyle(fontSize: 13)));
                           }).toList(),
                           onChanged: (val) {
                             if (val != null) {
                               setState(() {
                                 _selectedGroup = val;
-                                _isCustomGroup = val == 'أخرى (مجموعة مخصصة)';
+                                _isCustomGroup = val == _customGroupLabel;
                               });
                             }
                           },
